@@ -1,0 +1,15 @@
+==============================================================================
+Tasks :: Orders robots from RobotSpareBin Industries Inc. Saves the order H...
+==============================================================================
+Order robots from RobotSpareBin Industries Inc                        Capturing Screenshot to c:\Users\SonuPNELOJ\Desktop\my-first-robot\image_files\RSB-ROBO-ORDER-2W2C1T233D.png
+Printing RSB-ROBO-ORDER-2W2C1T233D
+Printing Embedding image c:\Users\SonuPNELOJ\Desktop\my-first-robot\image_files\RSB-ROBO-ORDER-2W2C1T233D.png in pdf file c:\Users\SonuPNELOJ\Desktop\my-first-robot\pdf_files\RSB-ROBO-ORDER-2W2C1T233D.pdf
+| PASS |
+------------------------------------------------------------------------------
+Create a Zip File of the Receipts                                     | PASS |
+------------------------------------------------------------------------------
+Tasks :: Orders robots from RobotSpareBin Industries Inc. Saves th... | PASS |
+2 tasks, 2 passed, 0 failed
+==============================================================================
+Output:  c:\Users\SonuPNELOJ\Desktop\my-first-robot\output\output.xml
+Log:     c:\Users\SonuPNELOJ\Desktop\my-first-robot\output\log.html

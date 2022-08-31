@@ -1,0 +1,1149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20220831 17:10:29.660" rpa="true" schemaversion="3">
+<suite id="s1" name="Tasks" source="c:\Users\SonuPNELOJ\Desktop\my-first-robot\tasks.robot">
+<test id="s1-t1" name="Order robots from RobotSpareBin Industries Inc" line="27">
+<kw name="Open the robot order website">
+<kw name="Open Available Browser" library="RPA.Browser.Selenium">
+<arg>${url}</arg>
+<doc>Attempts to open a browser on the user's device from a set of
+supported browsers. Automatically downloads a corresponding webdriver
+if none is already installed.</doc>
+<msg timestamp="20220831 17:10:33.597" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20220831 17:10:33.665" level="INFO">Created download root directory: C:\Users\SonuPNELOJ\AppData\Local\robocorp\webdrivers</msg>
+<msg timestamp="20220831 17:10:33.665" level="INFO">Created symlink directory: C:\Users\SonuPNELOJ\AppData\Local\robocorp\webdrivers</msg>
+<msg timestamp="20220831 17:10:33.665" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20220831 17:10:35.281" level="INFO">Created Chrome browser with arguments: --disable-dev-shm-usage --disable-web-security --allow-running-insecure-content --no-sandbox</msg>
+<msg timestamp="20220831 17:10:35.281" level="INFO" html="true">&lt;p&gt;Attempted combinations:&lt;/p&gt;&lt;div class="doc"&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Download&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;Message: 'chromedriver' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
+&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;True&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg timestamp="20220831 17:10:35.281" level="INFO">Opening url 'https://robotsparebinindustries.com/#/robot-order'</msg>
+<status status="PASS" starttime="20220831 17:10:33.597" endtime="20220831 17:10:36.080"/>
+</kw>
+<kw name="Maximize Browser Window" library="RPA.Browser.Selenium">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20220831 17:10:36.081" endtime="20220831 17:10:36.241"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20220831 17:10:41.256" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20220831 17:10:36.242" endtime="20220831 17:10:41.256"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:33.597" endtime="20220831 17:10:41.256"/>
+</kw>
+<kw name="Close the annoying modal">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>//*[@id="root"]/div/div[2]/div/div/div/div/div/button[1]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:41.258" level="INFO">Clicking button '//*[@id="root"]/div/div[2]/div/div/div/div/div/button[1]'.</msg>
+<status status="PASS" starttime="20220831 17:10:41.257" endtime="20220831 17:10:41.345"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:41.256" endtime="20220831 17:10:41.345"/>
+</kw>
+<kw name="Downloadcsv">
+<kw name="Download" library="RPA.HTTP">
+<arg>${csv_url}</arg>
+<arg>overwrite=true</arg>
+<doc>An alias for the ``HTTP Get`` keyword.</doc>
+<msg timestamp="20220831 17:10:41.346" level="INFO">Creating a new HTTP session</msg>
+<msg timestamp="20220831 17:10:41.346" level="INFO">Creating Session using : alias=rpasession_alias.httpsrobotsparebinindustries.com, url=https://robotsparebinindustries.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20220831 17:10:41.345" endtime="20220831 17:10:41.903"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:41.345" endtime="20220831 17:10:41.904"/>
+</kw>
+<kw name="Read data from the CSV file">
+<kw name="Read table from CSV" library="RPA.Tables">
+<var>${table}</var>
+<arg>orders.csv</arg>
+<doc>Read a CSV file as a table.</doc>
+<msg timestamp="20220831 17:10:41.911" level="INFO">${table} = Table(columns=['Order number', 'Head', 'Body', 'Legs', 'Address'], rows=20)</msg>
+<status status="PASS" starttime="20220831 17:10:41.905" endtime="20220831 17:10:41.912"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{table}</value>
+<iter>
+<var name="${element}">{'Order number': '1', 'Head': '1', 'Body': '2', 'Legs': '3', 'Address': 'Address 123'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:41.914" level="INFO">Selecting options from selection list 'head' by value 1.</msg>
+<status status="PASS" starttime="20220831 17:10:41.914" endtime="20220831 17:10:41.999"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:42.001" level="INFO">Selecting '2' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:42.000" endtime="20220831 17:10:42.096"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:42.097" level="INFO">Typing text '3' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:42.097" endtime="20220831 17:10:42.239"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:42.240" level="INFO">Typing text 'Address 123' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:42.239" endtime="20220831 17:10:42.380"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:42.380" endtime="20220831 17:10:42.382"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:41.913" endtime="20220831 17:10:42.382"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:41.913" endtime="20220831 17:10:42.382"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '2', 'Head': '4', 'Body': '1', 'Legs': '5', 'Address': 'Address 456'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:42.384" level="INFO">Selecting options from selection list 'head' by value 4.</msg>
+<status status="PASS" starttime="20220831 17:10:42.383" endtime="20220831 17:10:42.493"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:42.494" level="INFO">Selecting '1' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:42.493" endtime="20220831 17:10:42.602"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:42.603" level="INFO">Typing text '5' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:42.602" endtime="20220831 17:10:42.718"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:42.719" level="INFO">Typing text 'Address 456' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:42.718" endtime="20220831 17:10:42.847"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:42.847" endtime="20220831 17:10:42.849"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:42.383" endtime="20220831 17:10:42.849"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:42.382" endtime="20220831 17:10:42.849"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '3', 'Head': '6', 'Body': '2', 'Legs': '3', 'Address': 'Address 789'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:42.851" level="INFO">Selecting options from selection list 'head' by value 6.</msg>
+<status status="PASS" starttime="20220831 17:10:42.850" endtime="20220831 17:10:42.956"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:42.957" level="INFO">Selecting '2' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:42.957" endtime="20220831 17:10:43.014"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:43.016" level="INFO">Typing text '3' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:43.015" endtime="20220831 17:10:43.135"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:43.136" level="INFO">Typing text 'Address 789' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:43.135" endtime="20220831 17:10:43.283"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:43.283" endtime="20220831 17:10:43.285"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:42.850" endtime="20220831 17:10:43.285"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:42.849" endtime="20220831 17:10:43.286"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '4', 'Head': '2', 'Body': '3', 'Legs': '2', 'Address': 'Address 1'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:43.289" level="INFO">Selecting options from selection list 'head' by value 2.</msg>
+<status status="PASS" starttime="20220831 17:10:43.288" endtime="20220831 17:10:43.388"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:43.390" level="INFO">Selecting '3' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:43.389" endtime="20220831 17:10:43.495"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:43.496" level="INFO">Typing text '2' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:43.496" endtime="20220831 17:10:43.612"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:43.614" level="INFO">Typing text 'Address 1' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:43.613" endtime="20220831 17:10:43.756"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:43.757" endtime="20220831 17:10:43.758"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:43.286" endtime="20220831 17:10:43.758"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:43.286" endtime="20220831 17:10:43.759"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '5', 'Head': '3', 'Body': '5', 'Legs': '1', 'Address': 'Address 2'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:43.760" level="INFO">Selecting options from selection list 'head' by value 3.</msg>
+<status status="PASS" starttime="20220831 17:10:43.760" endtime="20220831 17:10:43.861"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:43.863" level="INFO">Selecting '5' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:43.862" endtime="20220831 17:10:43.970"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:43.973" level="INFO">Typing text '1' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:43.971" endtime="20220831 17:10:44.084"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:44.085" level="INFO">Typing text 'Address 2' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:44.084" endtime="20220831 17:10:44.211"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:44.211" endtime="20220831 17:10:44.214"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:43.759" endtime="20220831 17:10:44.214"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:43.759" endtime="20220831 17:10:44.214"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '6', 'Head': '1', 'Body': '6', 'Legs': '6', 'Address': 'Address 3'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:44.217" level="INFO">Selecting options from selection list 'head' by value 1.</msg>
+<status status="PASS" starttime="20220831 17:10:44.216" endtime="20220831 17:10:44.301"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:44.303" level="INFO">Selecting '6' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:44.302" endtime="20220831 17:10:44.407"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:44.408" level="INFO">Typing text '6' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:44.407" endtime="20220831 17:10:44.539"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:44.540" level="INFO">Typing text 'Address 3' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:44.540" endtime="20220831 17:10:44.665"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:44.666" endtime="20220831 17:10:44.669"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:44.215" endtime="20220831 17:10:44.669"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:44.214" endtime="20220831 17:10:44.670"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '7', 'Head': '5', 'Body': '1', 'Legs': '5', 'Address': 'Address 4'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:44.672" level="INFO">Selecting options from selection list 'head' by value 5.</msg>
+<status status="PASS" starttime="20220831 17:10:44.671" endtime="20220831 17:10:44.775"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:44.776" level="INFO">Selecting '1' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:44.776" endtime="20220831 17:10:44.846"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:44.847" level="INFO">Typing text '5' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:44.846" endtime="20220831 17:10:44.973"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:44.975" level="INFO">Typing text 'Address 4' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:44.974" endtime="20220831 17:10:45.116"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:45.116" endtime="20220831 17:10:45.118"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:44.670" endtime="20220831 17:10:45.119"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:44.670" endtime="20220831 17:10:45.119"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '8', 'Head': '2', 'Body': '3', 'Legs': '3', 'Address': 'Address 5'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:45.122" level="INFO">Selecting options from selection list 'head' by value 2.</msg>
+<status status="PASS" starttime="20220831 17:10:45.121" endtime="20220831 17:10:45.205"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:45.206" level="INFO">Selecting '3' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:45.205" endtime="20220831 17:10:45.288"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:45.289" level="INFO">Typing text '3' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:45.289" endtime="20220831 17:10:45.407"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:45.408" level="INFO">Typing text 'Address 5' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:45.407" endtime="20220831 17:10:45.523"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:45.523" endtime="20220831 17:10:45.525"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:45.120" endtime="20220831 17:10:45.525"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:45.120" endtime="20220831 17:10:45.525"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '9', 'Head': '3', 'Body': '2', 'Legs': '2', 'Address': 'Address 6'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:45.527" level="INFO">Selecting options from selection list 'head' by value 3.</msg>
+<status status="PASS" starttime="20220831 17:10:45.527" endtime="20220831 17:10:45.597"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:45.598" level="INFO">Selecting '2' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:45.597" endtime="20220831 17:10:45.665"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:45.666" level="INFO">Typing text '2' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:45.665" endtime="20220831 17:10:45.783"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:45.784" level="INFO">Typing text 'Address 6' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:45.783" endtime="20220831 17:10:45.904"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:45.908" endtime="20220831 17:10:45.911"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:45.526" endtime="20220831 17:10:45.911"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:45.526" endtime="20220831 17:10:45.911"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '10', 'Head': '4', 'Body': '4', 'Legs': '2', 'Address': 'Address 7'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:45.913" level="INFO">Selecting options from selection list 'head' by value 4.</msg>
+<status status="PASS" starttime="20220831 17:10:45.912" endtime="20220831 17:10:45.989"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:45.990" level="INFO">Selecting '4' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:45.989" endtime="20220831 17:10:46.097"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:46.098" level="INFO">Typing text '2' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:46.097" endtime="20220831 17:10:46.222"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:46.222" level="INFO">Typing text 'Address 7' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:46.222" endtime="20220831 17:10:46.338"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:46.339" endtime="20220831 17:10:46.341"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:45.911" endtime="20220831 17:10:46.341"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:45.911" endtime="20220831 17:10:46.341"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '11', 'Head': '6', 'Body': '6', 'Legs': '1', 'Address': 'Address 8'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:46.343" level="INFO">Selecting options from selection list 'head' by value 6.</msg>
+<status status="PASS" starttime="20220831 17:10:46.342" endtime="20220831 17:10:46.416"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:46.417" level="INFO">Selecting '6' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:46.416" endtime="20220831 17:10:46.498"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:46.499" level="INFO">Typing text '1' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:46.498" endtime="20220831 17:10:46.632"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:46.633" level="INFO">Typing text 'Address 8' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:46.632" endtime="20220831 17:10:46.780"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:46.781" endtime="20220831 17:10:46.783"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:46.341" endtime="20220831 17:10:46.784"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:46.341" endtime="20220831 17:10:46.784"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '12', 'Head': '1', 'Body': '3', 'Legs': '3', 'Address': 'Address 9'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:46.787" level="INFO">Selecting options from selection list 'head' by value 1.</msg>
+<status status="PASS" starttime="20220831 17:10:46.786" endtime="20220831 17:10:46.880"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:46.882" level="INFO">Selecting '3' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:46.881" endtime="20220831 17:10:46.969"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:46.970" level="INFO">Typing text '3' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:46.970" endtime="20220831 17:10:47.076"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:47.077" level="INFO">Typing text 'Address 9' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:47.076" endtime="20220831 17:10:47.219"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:47.219" endtime="20220831 17:10:47.221"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:46.785" endtime="20220831 17:10:47.222"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:46.785" endtime="20220831 17:10:47.222"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '13', 'Head': '1', 'Body': '5', 'Legs': '4', 'Address': 'Address A'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:47.225" level="INFO">Selecting options from selection list 'head' by value 1.</msg>
+<status status="PASS" starttime="20220831 17:10:47.224" endtime="20220831 17:10:47.305"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:47.306" level="INFO">Selecting '5' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:47.305" endtime="20220831 17:10:47.377"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:47.378" level="INFO">Typing text '4' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:47.377" endtime="20220831 17:10:47.502"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:47.503" level="INFO">Typing text 'Address A' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:47.503" endtime="20220831 17:10:47.677"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:47.677" endtime="20220831 17:10:47.681"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:47.223" endtime="20220831 17:10:47.681"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:47.222" endtime="20220831 17:10:47.681"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '14', 'Head': '3', 'Body': '1', 'Legs': '5', 'Address': 'Address B'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:47.685" level="INFO">Selecting options from selection list 'head' by value 3.</msg>
+<status status="PASS" starttime="20220831 17:10:47.683" endtime="20220831 17:10:47.799"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:47.801" level="INFO">Selecting '1' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:47.799" endtime="20220831 17:10:47.905"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:47.907" level="INFO">Typing text '5' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:47.906" endtime="20220831 17:10:48.069"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:48.070" level="INFO">Typing text 'Address B' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:48.069" endtime="20220831 17:10:48.228"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:48.228" endtime="20220831 17:10:48.229"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:47.682" endtime="20220831 17:10:48.230"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:47.681" endtime="20220831 17:10:48.230"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '15', 'Head': '3', 'Body': '2', 'Legs': '6', 'Address': 'Address C'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:48.232" level="INFO">Selecting options from selection list 'head' by value 3.</msg>
+<status status="PASS" starttime="20220831 17:10:48.232" endtime="20220831 17:10:48.295"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:48.296" level="INFO">Selecting '2' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:48.295" endtime="20220831 17:10:48.377"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:48.378" level="INFO">Typing text '6' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:48.377" endtime="20220831 17:10:48.499"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:48.500" level="INFO">Typing text 'Address C' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:48.499" endtime="20220831 17:10:48.650"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:48.650" endtime="20220831 17:10:48.652"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:48.231" endtime="20220831 17:10:48.653"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:48.231" endtime="20220831 17:10:48.653"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '16', 'Head': '6', 'Body': '3', 'Legs': '6', 'Address': 'Address D'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:48.654" level="INFO">Selecting options from selection list 'head' by value 6.</msg>
+<status status="PASS" starttime="20220831 17:10:48.654" endtime="20220831 17:10:48.740"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:48.741" level="INFO">Selecting '3' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:48.740" endtime="20220831 17:10:48.844"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:48.845" level="INFO">Typing text '6' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:48.844" endtime="20220831 17:10:48.970"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:48.972" level="INFO">Typing text 'Address D' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:48.970" endtime="20220831 17:10:49.123"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:49.124" endtime="20220831 17:10:49.126"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:48.653" endtime="20220831 17:10:49.126"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:48.653" endtime="20220831 17:10:49.126"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '17', 'Head': '5', 'Body': '4', 'Legs': '1', 'Address': 'Address E'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:49.128" level="INFO">Selecting options from selection list 'head' by value 5.</msg>
+<status status="PASS" starttime="20220831 17:10:49.127" endtime="20220831 17:10:49.188"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:49.189" level="INFO">Selecting '4' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:49.189" endtime="20220831 17:10:49.266"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:49.269" level="INFO">Typing text '1' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:49.267" endtime="20220831 17:10:49.420"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:49.422" level="INFO">Typing text 'Address E' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:49.421" endtime="20220831 17:10:49.566"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:49.566" endtime="20220831 17:10:49.569"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:49.126" endtime="20220831 17:10:49.569"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:49.126" endtime="20220831 17:10:49.570"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '18', 'Head': '2', 'Body': '5', 'Legs': '1', 'Address': 'Address F'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:49.572" level="INFO">Selecting options from selection list 'head' by value 2.</msg>
+<status status="PASS" starttime="20220831 17:10:49.571" endtime="20220831 17:10:49.661"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:49.661" level="INFO">Selecting '5' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:49.661" endtime="20220831 17:10:49.737"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:49.739" level="INFO">Typing text '1' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:49.738" endtime="20220831 17:10:49.853"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:49.854" level="INFO">Typing text 'Address F' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:49.853" endtime="20220831 17:10:49.981"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:49.981" endtime="20220831 17:10:49.984"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:49.570" endtime="20220831 17:10:49.985"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:49.570" endtime="20220831 17:10:49.985"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '19', 'Head': '4', 'Body': '6', 'Legs': '2', 'Address': 'Address G'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:49.987" level="INFO">Selecting options from selection list 'head' by value 4.</msg>
+<status status="PASS" starttime="20220831 17:10:49.986" endtime="20220831 17:10:50.075"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:50.075" level="INFO">Selecting '6' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:50.075" endtime="20220831 17:10:50.155"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:50.157" level="INFO">Typing text '2' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:50.156" endtime="20220831 17:10:50.280"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:50.281" level="INFO">Typing text 'Address G' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:50.280" endtime="20220831 17:10:50.423"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:50.424" endtime="20220831 17:10:50.426"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:49.985" endtime="20220831 17:10:50.427"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:49.985" endtime="20220831 17:10:50.427"/>
+</iter>
+<iter>
+<var name="${element}">{'Order number': '20', 'Head': '1', 'Body': '1', 'Legs': '5', 'Address': 'Address H'}</var>
+<kw name="order robot using csv file">
+<arg>${element}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${element}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20220831 17:10:50.428" level="INFO">Selecting options from selection list 'head' by value 1.</msg>
+<status status="PASS" starttime="20220831 17:10:50.428" endtime="20220831 17:10:50.508"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${element}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20220831 17:10:50.509" level="INFO">Selecting '1' from radio button 'body'.</msg>
+<status status="PASS" starttime="20220831 17:10:50.508" endtime="20220831 17:10:50.576"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//div[@class='col-sm-7']/form/div[3]/input</arg>
+<arg>${element}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:50.576" level="INFO">Typing text '5' into text field '//div[@class='col-sm-7']/form/div[3]/input'.</msg>
+<status status="PASS" starttime="20220831 17:10:50.576" endtime="20220831 17:10:50.681"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@id='address']</arg>
+<arg>${element}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:50.682" level="INFO">Typing text 'Address H' into text field '//input[@id='address']'.</msg>
+<status status="PASS" starttime="20220831 17:10:50.681" endtime="20220831 17:10:50.806"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="RPA.Browser.Selenium">
+<arg>10</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" starttime="20220831 17:10:50.807" endtime="20220831 17:10:50.809"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:50.427" endtime="20220831 17:10:50.809"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:50.427" endtime="20220831 17:10:50.809"/>
+</iter>
+<status status="PASS" starttime="20220831 17:10:41.912" endtime="20220831 17:10:50.809"/>
+</for>
+<status status="PASS" starttime="20220831 17:10:41.904" endtime="20220831 17:10:50.810"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>10x</arg>
+<arg>2s</arg>
+<arg>Preview the robot</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Preview the robot">
+<kw name="Set Local Variable" library="BuiltIn">
+<arg>${btn_preview}</arg>
+<arg>//*[@id="preview"]</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<msg timestamp="20220831 17:10:50.814" level="INFO">${btn_preview} = //*[@id="preview"]</msg>
+<status status="PASS" starttime="20220831 17:10:50.812" endtime="20220831 17:10:50.814"/>
+</kw>
+<kw name="Set Local Variable" library="BuiltIn">
+<arg>${img_preview}</arg>
+<arg>//*[@id="robot-preview-image"]</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<msg timestamp="20220831 17:10:50.817" level="INFO">${img_preview} = //*[@id="robot-preview-image"]</msg>
+<status status="PASS" starttime="20220831 17:10:50.815" endtime="20220831 17:10:50.817"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>${btn_preview}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:50.818" level="INFO">Clicking button '//*[@id="preview"]'.</msg>
+<status status="PASS" starttime="20220831 17:10:50.817" endtime="20220831 17:10:50.965"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="RPA.Browser.Selenium">
+<arg>${img_preview}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220831 17:10:50.966" endtime="20220831 17:10:51.017"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:50.811" endtime="20220831 17:10:51.017"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:50.810" endtime="20220831 17:10:51.017"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>10x</arg>
+<arg>2s</arg>
+<arg>Submit The Order</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Submit the order">
+<kw name="Set Local Variable" library="BuiltIn">
+<arg>${btn_order}</arg>
+<arg>//*[@id="order"]</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<msg timestamp="20220831 17:10:51.021" level="INFO">${btn_order} = //*[@id="order"]</msg>
+<status status="PASS" starttime="20220831 17:10:51.019" endtime="20220831 17:10:51.021"/>
+</kw>
+<kw name="Set Local Variable" library="BuiltIn">
+<arg>${lbl_receipt}</arg>
+<arg>//*[@id="receipt"]</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<msg timestamp="20220831 17:10:51.023" level="INFO">${lbl_receipt} = //*[@id="receipt"]</msg>
+<status status="PASS" starttime="20220831 17:10:51.021" endtime="20220831 17:10:51.023"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>${btn_order}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:51.023" level="INFO">Clicking button '//*[@id="order"]'.</msg>
+<status status="PASS" starttime="20220831 17:10:51.023" endtime="20220831 17:10:51.171"/>
+</kw>
+<kw name="Page Should Contain Element" library="RPA.Browser.Selenium">
+<arg>${lbl_receipt}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<msg timestamp="20220831 17:10:51.189" level="INFO">Current page contains element '//*[@id="receipt"]'.</msg>
+<status status="PASS" starttime="20220831 17:10:51.171" endtime="20220831 17:10:51.189"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:51.019" endtime="20220831 17:10:51.190"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:51.018" endtime="20220831 17:10:51.190"/>
+</kw>
+<kw name="Take a screenshot of the robot">
+<var>${orderid}</var>
+<var>${img_filename}</var>
+<kw name="Set Local Variable" library="BuiltIn">
+<arg>${lbl_orderid}</arg>
+<arg>xpath://html/body/div/div/div[1]/div/div[1]/div/div/p[1]</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<msg timestamp="20220831 17:10:51.192" level="INFO">${lbl_orderid} = xpath://html/body/div/div/div[1]/div/div[1]/div/div/p[1]</msg>
+<status status="PASS" starttime="20220831 17:10:51.191" endtime="20220831 17:10:51.192"/>
+</kw>
+<kw name="Set Local Variable" library="BuiltIn">
+<arg>${img_robot}</arg>
+<arg>//*[@id="robot-preview-image"]</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<msg timestamp="20220831 17:10:51.195" level="INFO">${img_robot} = //*[@id="robot-preview-image"]</msg>
+<status status="PASS" starttime="20220831 17:10:51.193" endtime="20220831 17:10:51.195"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="RPA.Browser.Selenium">
+<arg>${img_robot}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220831 17:10:51.195" endtime="20220831 17:10:51.224"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="RPA.Browser.Selenium">
+<arg>${lbl_orderid}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220831 17:10:51.224" endtime="20220831 17:10:51.256"/>
+</kw>
+<kw name="Get Text" library="RPA.Browser.Selenium">
+<var>${orderid}</var>
+<arg>//*[@id="receipt"]/p[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:51.297" level="INFO">${orderid} = RSB-ROBO-ORDER-2W2C1T233D</msg>
+<status status="PASS" starttime="20220831 17:10:51.256" endtime="20220831 17:10:51.297"/>
+</kw>
+<kw name="Set Local Variable" library="BuiltIn">
+<arg>${fully_qualified_img_filename}</arg>
+<arg>${image_folder}${/}${orderid}.png</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<msg timestamp="20220831 17:10:51.300" level="INFO">${fully_qualified_img_filename} = c:\Users\SonuPNELOJ\Desktop\my-first-robot\image_files\RSB-ROBO-ORDER-2W2C1T233D.png</msg>
+<status status="PASS" starttime="20220831 17:10:51.298" endtime="20220831 17:10:51.300"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1sec</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20220831 17:10:52.303" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20220831 17:10:51.300" endtime="20220831 17:10:52.303"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Capturing Screenshot to ${fully_qualified_img_filename}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220831 17:10:52.304" endtime="20220831 17:10:52.305"/>
+</kw>
+<kw name="Capture Element Screenshot" library="RPA.Browser.Selenium">
+<arg>${img_robot}</arg>
+<arg>${fully_qualified_img_filename}</arg>
+<doc>Captures a screenshot from the element identified by ``locator`` and embeds it into log file.</doc>
+<msg timestamp="20220831 17:10:52.470" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="../image_files/RSB-ROBO-ORDER-2W2C1T233D.png"&gt;&lt;img src="../image_files/RSB-ROBO-ORDER-2W2C1T233D.png" width="400px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20220831 17:10:52.305" endtime="20220831 17:10:52.471"/>
+</kw>
+<return>
+<value>${orderid}</value>
+<value>${fully_qualified_img_filename}</value>
+<status status="PASS" starttime="20220831 17:10:52.471" endtime="20220831 17:10:52.471"/>
+</return>
+<msg timestamp="20220831 17:10:52.472" level="INFO">${orderid} = RSB-ROBO-ORDER-2W2C1T233D</msg>
+<msg timestamp="20220831 17:10:52.472" level="INFO">${img_filename} = c:\Users\SonuPNELOJ\Desktop\my-first-robot\image_files\RSB-ROBO-ORDER-2W2C1T233D.png</msg>
+<status status="PASS" starttime="20220831 17:10:51.190" endtime="20220831 17:10:52.472"/>
+</kw>
+<kw name="Store the receipt as a PDF file">
+<var>${pdf_filename}</var>
+<arg>ORDER_NUMBER=${order_id}</arg>
+<kw name="Wait Until Element Is Visible" library="RPA.Browser.Selenium">
+<arg>//*[@id="receipt"]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220831 17:10:52.473" endtime="20220831 17:10:52.501"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Printing ${ORDER_NUMBER}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220831 17:10:52.501" endtime="20220831 17:10:52.502"/>
+</kw>
+<kw name="Get Element Attribute" library="RPA.Browser.Selenium">
+<var>${order_receipt_html}</var>
+<arg>//*[@id="receipt"]</arg>
+<arg>outerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20220831 17:10:52.520" level="INFO">${order_receipt_html} = &lt;div id="receipt" class="alert alert-success" role="alert"&gt;&lt;h3&gt;Receipt&lt;/h3&gt;&lt;div&gt;2022-08-31T11:40:51.147Z&lt;/div&gt;&lt;p class="badge badge-success"&gt;RSB-ROBO-ORDER-2W2C1T233D&lt;/p&gt;&lt;p&gt;Address H&lt;/p&gt;&lt;div id="parts...</msg>
+<status status="PASS" starttime="20220831 17:10:52.503" endtime="20220831 17:10:52.520"/>
+</kw>
+<kw name="Set Local Variable" library="BuiltIn">
+<arg>${fully_qualified_pdf_filename}</arg>
+<arg>${pdf_folder}${/}${ORDER_NUMBER}.pdf</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<msg timestamp="20220831 17:10:52.523" level="INFO">${fully_qualified_pdf_filename} = c:\Users\SonuPNELOJ\Desktop\my-first-robot\pdf_files\RSB-ROBO-ORDER-2W2C1T233D.pdf</msg>
+<status status="PASS" starttime="20220831 17:10:52.520" endtime="20220831 17:10:52.523"/>
+</kw>
+<kw name="Html To Pdf" library="RPA.PDF">
+<arg>content=${order_receipt_html}</arg>
+<arg>output_path=${fully_qualified_pdf_filename}</arg>
+<doc>Generate a PDF file from HTML content.</doc>
+<msg timestamp="20220831 17:10:52.524" level="INFO">Writing output to file C:\Users\SonuPNELOJ\Desktop\my-first-robot\pdf_files\RSB-ROBO-ORDER-2W2C1T233D.pdf</msg>
+<status status="PASS" starttime="20220831 17:10:52.523" endtime="20220831 17:10:52.766"/>
+</kw>
+<return>
+<value>${fully_qualified_pdf_filename}</value>
+<status status="PASS" starttime="20220831 17:10:52.766" endtime="20220831 17:10:52.766"/>
+</return>
+<msg timestamp="20220831 17:10:52.767" level="INFO">${pdf_filename} = c:\Users\SonuPNELOJ\Desktop\my-first-robot\pdf_files\RSB-ROBO-ORDER-2W2C1T233D.pdf</msg>
+<status status="PASS" starttime="20220831 17:10:52.472" endtime="20220831 17:10:52.767"/>
+</kw>
+<kw name="Embed the robot screenshot to the receipt PDF file">
+<arg>IMG_FILE=${img_filename}</arg>
+<arg>PDF_FILE=${pdf_filename}</arg>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Printing Embedding image ${IMG_FILE} in pdf file ${PDF_FILE}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220831 17:10:52.769" endtime="20220831 17:10:52.770"/>
+</kw>
+<kw name="Open Pdf" library="RPA.PDF">
+<arg>${PDF_FILE}</arg>
+<doc>Open a PDF document for reading.</doc>
+<status status="PASS" starttime="20220831 17:10:52.770" endtime="20220831 17:10:52.791"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>@{myfiles}</var>
+<arg>${IMG_FILE}:x=0,y=0</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20220831 17:10:52.792" level="INFO">@{myfiles} = [ c:\Users\SonuPNELOJ\Desktop\my-first-robot\image_files\RSB-ROBO-ORDER-2W2C1T233D.png:x=0,y=0 ]</msg>
+<status status="PASS" starttime="20220831 17:10:52.791" endtime="20220831 17:10:52.792"/>
+</kw>
+<kw name="Add Files To Pdf" library="RPA.PDF">
+<arg>${myfiles}</arg>
+<arg>${PDF_FILE}</arg>
+<arg>${True}</arg>
+<doc>Add images and/or pdfs to new PDF document</doc>
+<msg timestamp="20220831 17:10:52.800" level="INFO">Adding page: 0</msg>
+<msg timestamp="20220831 17:10:52.808" level="INFO">File c:\Users\SonuPNELOJ\Desktop\my-first-robot\image_files\RSB-ROBO-ORDER-2W2C1T233D.png type: png</msg>
+<msg timestamp="20220831 17:10:52.808" level="INFO">Image parameters: {'x': '0', 'y': '0'}</msg>
+<status status="PASS" starttime="20220831 17:10:52.792" endtime="20220831 17:10:53.096"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:52.767" endtime="20220831 17:10:53.096"/>
+</kw>
+<kw name="Go to order another robot">
+<kw name="Set Local Variable" library="BuiltIn">
+<arg>${btn_order_another_robot}</arg>
+<arg>//*[@id="order-another"]</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<msg timestamp="20220831 17:10:53.101" level="INFO">${btn_order_another_robot} = //*[@id="order-another"]</msg>
+<status status="PASS" starttime="20220831 17:10:53.097" endtime="20220831 17:10:53.101"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>${btn_order_another_robot}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20220831 17:10:53.103" level="INFO">Clicking button '//*[@id="order-another"]'.</msg>
+<status status="PASS" starttime="20220831 17:10:53.101" endtime="20220831 17:10:53.410"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:53.097" endtime="20220831 17:10:53.410"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:33.595" endtime="20220831 17:10:53.411"/>
+</test>
+<test id="s1-t2" name="Create a Zip File of the Receipts" line="39">
+<kw name="Archive Folder With Zip" library="RPA.Archive">
+<arg>${pdf_folder}</arg>
+<arg>${zip_file}</arg>
+<arg>recursive=True</arg>
+<arg>include=*.pdf</arg>
+<doc>Create a zip archive of a folder</doc>
+<status status="PASS" starttime="20220831 17:10:53.418" endtime="20220831 17:10:53.439"/>
+</kw>
+<status status="PASS" starttime="20220831 17:10:53.416" endtime="20220831 17:10:53.440"/>
+</test>
+<doc>Orders robots from RobotSpareBin Industries Inc.
+Saves the order HTML receipt as a PDF file.
+Saves the screenshot of the ordered robot.
+Embeds the screenshot of the robot to the PDF receipt.
+Creates ZIP archive of the receipts and the images.</doc>
+<status status="PASS" starttime="20220831 17:10:29.662" endtime="20220831 17:10:53.441"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="0" skip="0" id="s1" name="Tasks">Tasks</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
